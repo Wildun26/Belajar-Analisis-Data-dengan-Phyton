@@ -41,7 +41,7 @@ with col1:
     # st.subheader("Season-wise Bike Share Count")
 
     # Mapping dari angka ke label musim
-    season_mapping = {1: "spring", 2: "summer", 3: "fall", 4: "winter"}
+    season_mapping = {2: "summer", 3: "fall"}
     data["season_label"] = data["season"].map(season_mapping)
 
     season_count = data.groupby("season_label")["cnt"].sum().reset_index()
