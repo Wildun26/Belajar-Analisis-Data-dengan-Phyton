@@ -29,20 +29,9 @@ with kolom2:
                                y="cnt", title="Jumlah Berbagi Sepeda Menurut Situasi Cuaca")
     st.plotly_chart(grafik_jumlah_cuaca, use_container_width=True, height=400, width=800)
 
-# Jumlah Berbagi Sepeda per Jam
+# Sewa Sepeda per Jam
 jumlah_per_jam = data.groupby("hr")["cnt"].sum().reset_index()
 grafik_jumlah_per_jam = px.line(
     jumlah_per_jam, x="hr", y="cnt", title="Jumlah Berbagi Sepeda per Jam")
 st.plotly_chart(grafik_jumlah_per_jam, use_container_width=True,
                 height=400, width=600)
-
-# Kelembapan vs. Jumlah Berbagi Sepeda
-grafik_kelembapan = px.scatter(
-    data, x="hum", y="cnt", title="Kelembapan vs. Jumlah Berbagi Sepeda")
-st.plotly_chart(grafik_kelembapan)
-
-# Suhu vs. Jumlah Berbagi Sepeda
-grafik_suhu = px.scatter(data, x="temp", y="cnt",
-                            title="Suhu vs. Jumlah Berbagi Sepeda")
-st.plotly_chart(grafik_suhu, use_container_width=True,
-                height=400, width=800)
