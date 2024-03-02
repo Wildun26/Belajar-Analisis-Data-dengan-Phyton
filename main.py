@@ -41,4 +41,3 @@ grafik_suhu = px.scatter(data, x="suhu", y="cnt",
                             title="Suhu vs. Sewa Sepeda")
 st.plotly_chart(grafik_suhu, use_container_width=True,
                 height=400, width=800)
-```
