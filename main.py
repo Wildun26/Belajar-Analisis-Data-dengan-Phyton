@@ -28,15 +28,6 @@ if st.sidebar.checkbox("Show Summary Statistics"):
     st.subheader("Summary Statistics")
     st.write(data.describe())
 
-# Show dataset source
-st.sidebar.markdown("[Download Dataset](https://link-to-your-dataset)")
-
-st.sidebar.markdown('**Weather:**')
-st.sidebar.markdown('1: Clear, Few clouds, Partly cloudy, Partly cloudy')
-st.sidebar.markdown('2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist')
-st.sidebar.markdown('3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds')
-st.sidebar.markdown('4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog')
-
 
 # ==============================
 # VISUALIZATION
@@ -97,7 +88,3 @@ fig_temp_chart = px.scatter(data, x="temp", y="cnt",
 st.plotly_chart(fig_temp_chart, use_container_width=True,
                 height=400, width=800)
 
-# Show data source and description
-st.sidebar.title("About")
-st.sidebar.info("Dashboard ini menampilkan visualisasi untuk sekumpulan data Bike Share. "
-                "Dataset ini mengandung informasi mengenai penyewaan sepeda berdasarkan berbagai variabel seperti musim, suhu, kelembaban, dan faktor lainnya.")
