@@ -13,7 +13,7 @@ kolom1, kolom2 = st.columns(2)
 
 with kolom1:
     # Sewa Sepeda Menurut Musim
-    mapping_musim = {1: "musim panas", 2: "musim gugur"}
+    mapping_musim = {2: "musim panas", 3: "musim gugur"}
     data["label_musim"] = data["musim"].map(mapping_musim)
 
     jumlah_musim = data.groupby("label_musim")["cnt"].sum().reset_index()
