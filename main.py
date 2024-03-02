@@ -4,16 +4,40 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-#Load Data
+# ==============================
+# LOAD DATA
+# ==============================
+
+
+@st.cache_resource
 def load_data():
-    data = pd.read_csv("C:\Users\user\Downloads\Compressed\Bike-sharing-dataset")
+    data = pd.read_csv("../dataset/Bike-sharing-dataset/hour.csv")
     return data
 
 
 data = load_data()
 
+
+# ==============================
+# TITLE DASHBOARD
+# ==============================
 # Set page title
 st.title("Bike Share Dashboard")
+
+# ==============================
+# SIDEBAR
+# ==============================
+st.sidebar.title("Information:")
+st.sidebar.markdown("**• Nama: Maulana Kavaldo**")
+st.sidebar.markdown(
+    "**• Email: [alkav.maulana@gmail.com](alkav.maulana@gmail.com)**")
+st.sidebar.markdown(
+    "**• Dicoding: [maulanakavaldo](https://www.dicoding.com/users/maulanakavaldo/)**")
+st.sidebar.markdown(
+    "**• LinkedIn: [Maulana Kavaldo](https://www.linkedin.com/in/maulana-kavaldo/)**")
+st.sidebar.markdown(
+    "**• Github: [maulanakavaldo](https://maulanakavaldo.github.io/)**")
+
 
 st.sidebar.title("Dataset Bike Share")
 # Show the dataset
@@ -25,6 +49,20 @@ if st.sidebar.checkbox("Show Dataset"):
 if st.sidebar.checkbox("Show Summary Statistics"):
     st.subheader("Summary Statistics")
     st.write(data.describe())
+
+# Show dataset source
+st.sidebar.markdown("[Download Dataset](https://link-to-your-dataset)")
+
+st.sidebar.markdown('**Weather:**')
+st.sidebar.markdown('1: Clear, Few clouds, Partly cloudy, Partly cloudy')
+st.sidebar.markdown('2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist')
+st.sidebar.markdown('3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds')
+st.sidebar.markdown('4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog')
+
+
+# ==============================
+# VISUALIZATION
+# ==============================
 
 # create a layout with two columns
 col1, col2 = st.columns(2)
@@ -53,6 +91,7 @@ with col2:
     # Mengatur tinggi dan lebar gambar
     st.plotly_chart(fig_weather_count, use_container_width=True,height=400, width=800)
 
+
 # Hourly bike share count
 # st.subheader("Hourly Bike Share Count")
 hourly_count = data.groupby("hr")["cnt"].sum().reset_index()
@@ -79,3 +118,8 @@ fig_temp_chart = px.scatter(data, x="temp", y="cnt",
                             title="Temperature vs. Bike Share Count")
 st.plotly_chart(fig_temp_chart, use_container_width=True,
                 height=400, width=800)
+
+# Show data source and description
+st.sidebar.title("About")
+st.sidebar.info("Dashboard ini menampilkan visualisasi untuk sekumpulan data Bike Share. "
+                "Dataset ini mengandung informasi mengenai penyewaan sepeda berdasarkan berbagai variabel seperti musim, suhu, kelembaban, dan faktor lainnya.")
