@@ -17,28 +17,6 @@ def load_data():
 
 data = load_data()
 
-
-# ==============================
-# TITLE DASHBOARD
-# ==============================
-# Set page title
-st.title("Bike Share Dashboard")
-
-# ==============================
-# SIDEBAR
-# ==============================
-st.sidebar.title("Information:")
-st.sidebar.markdown("**• Nama: Maulana Kavaldo**")
-st.sidebar.markdown(
-    "**• Email: [alkav.maulana@gmail.com](alkav.maulana@gmail.com)**")
-st.sidebar.markdown(
-    "**• Dicoding: [maulanakavaldo](https://www.dicoding.com/users/maulanakavaldo/)**")
-st.sidebar.markdown(
-    "**• LinkedIn: [Maulana Kavaldo](https://www.linkedin.com/in/maulana-kavaldo/)**")
-st.sidebar.markdown(
-    "**• Github: [maulanakavaldo](https://maulanakavaldo.github.io/)**")
-
-
 st.sidebar.title("Dataset Bike Share")
 # Show the dataset
 if st.sidebar.checkbox("Show Dataset"):
