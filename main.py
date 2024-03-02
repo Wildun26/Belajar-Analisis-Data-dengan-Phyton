@@ -1,90 +1,44 @@
-# Import Library
+# Mengimpor Pustaka
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 
-# ==============================
-# LOAD DATA
-# ==============================
-
-
-@st.cache_resource
-def load_data():
+def muat_data():
     data = pd.read_csv("Bike-sharing-dataset/hour.csv")
     return data
 
+data = muat_data()
 
-data = load_data()
+kolom1, kolom2 = st.columns(2)
 
-st.sidebar.title("Dataset Bike Share")
-# Show the dataset
-if st.sidebar.checkbox("Show Dataset"):
-    st.subheader("Raw Data")
-    st.write(data)
+with kolom1:
+    # Sewa Sepeda Menurut Musim
+    mapping_musim = {1: "musim panas", 2: "musim gugur"}
+    data["label_musim"] = data["musim"].map(mapping_musim)
 
-# Display summary statistics
-if st.sidebar.checkbox("Show Summary Statistics"):
-    st.subheader("Summary Statistics")
-    st.write(data.describe())
-
-
-# ==============================
-# VISUALIZATION
-# ==============================
-
-# create a layout with two columns
-col1, col2 = st.columns(2)
-
-with col1:
-    # Season-wise bike share count
-    # st.subheader("Season-wise Bike Share Count")
-
-    # Mapping dari angka ke label musim
-    season_mapping = {2: "summer", 3: "fall"}
-    data["season_label"] = data["season"].map(season_mapping)
-
-    season_count = data.groupby("season_label")["cnt"].sum().reset_index()
-    fig_season_count = px.bar(season_count, x="season_label",
-                              y="cnt", title="Season-wise Bike Share Count")
-    st.plotly_chart(fig_season_count, use_container_width=True,
+    jumlah_musim = data.groupby("label_musim")["cnt"].sum().reset_index()
+    grafik_jumlah_musim = px.bar(jumlah_musim, x="label_musim",
+                              y="cnt", title="Sewa Sepeda Menurut Musim")
+    st.plotly_chart(grafik_jumlah_musim, use_container_width=True,
                     height=400, width=600)
 
-with col2:
-    # Weather situation-wise bike share count
-    # st.subheader("Weather Situation-wise Bike Share Count")
+with kolom2:
+    # Sewa Sepeda Menurut Situasi Cuaca
+    jumlah_cuaca = data.groupby("cuaca")["cnt"].sum().reset_index()
+    grafik_jumlah_cuaca = px.bar(jumlah_cuaca, x="cuaca",
+                               y="cnt", title="Sewa Sepeda Menurut Situasi Cuaca")
+    st.plotly_chart(grafik_jumlah_cuaca, use_container_width=True, height=400, width=800)
 
-    weather_count = data.groupby("weathersit")["cnt"].sum().reset_index()
-    fig_weather_count = px.bar(weather_count, x="weathersit",
-                               y="cnt", title="Weather Situation-wise Bike Share Count")
-    # Mengatur tinggi dan lebar gambar
-    st.plotly_chart(fig_weather_count, use_container_width=True,height=400, width=800)
-
-
-# Hourly bike share count
-# st.subheader("Hourly Bike Share Count")
-hourly_count = data.groupby("hr")["cnt"].sum().reset_index()
-fig_hourly_count = px.line(
-    hourly_count, x="hr", y="cnt", title="Hourly Bike Share Count")
-st.plotly_chart(fig_hourly_count, use_container_width=True,
+# Sewa Sepeda per Jam
+jumlah_per_jam = data.groupby("jam")["cnt"].sum().reset_index()
+grafik_jumlah_per_jam = px.line(
+    jumlah_per_jam, x="jam", y="cnt", title="Sewa Sepeda per Jam")
+st.plotly_chart(grafik_jumlah_per_jam, use_container_width=True,
                 height=400, width=600)
 
-# Humidity vs. Bike Share Count
-# st.subheader("Humidity vs. Bike Share Count")
-fig_humidity_chart = px.scatter(
-    data, x="hum", y="cnt", title="Humidity vs. Bike Share Count")
-st.plotly_chart(fig_humidity_chart)
-
-# Wind Speed vs. Bike Share Count
-# st.subheader("Wind Speed vs. Bike Share Count")
-fig_wind_speed_chart = px.scatter(
-    data, x="windspeed", y="cnt", title="Wind Speed vs. Bike Share Count")
-st.plotly_chart(fig_wind_speed_chart)
-
-# Temperature vs. Bike Share Count
-# st.subheader("Temperature vs. Bike Share Count")
-fig_temp_chart = px.scatter(data, x="temp", y="cnt",
-                            title="Temperature vs. Bike Share Count")
-st.plotly_chart(fig_temp_chart, use_container_width=True,
+# Suhu vs. Sewa Sepeda
+grafik_suhu = px.scatter(data, x="suhu", y="cnt",
+                            title="Suhu vs. Sewa Sepeda")
+st.plotly_chart(grafik_suhu, use_container_width=True,
                 height=400, width=800)
-
+```
